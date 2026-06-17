@@ -26,44 +26,22 @@ jobs:
     - name: Build web app
       run: npm run build
     
+    - name: Sync to Android
+      run: npx cap sync android
+    
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
     
-    - name: Install Capacitor CLI
-      run: npm install -g @capacitor/core @capacitor/cli @capacitor/android
-    
-    - name: Add Android platform
-      run: npx cap add android || echo "Android platform already exists"
-    
-    - name: Sync Capacitor
-      run: npx cap sync android
-    
-    - name: Build Android APK with detailed logging
-      working-directory: ./android
+    - name: Build Android APK
       run: |
+        cd android
         chmod +x gradlew
-        ./gradlew assembleDebug --stacktrace --info 2>&1 | tee build.log
-        echo "=== Build log ==="
-        cat build.log
-      continue-on-error: true
-    
-    - name: Check APK exists
-      run: |
-        if [ -f "android/app/build/outputs/apk/debug/app-debug.apk" ]; then
-          echo "✅ APK built successfully"
-          ls -lh android/app/build/outputs/apk/debug/app-debug.apk
-        else
-          echo "❌ APK not found, checking build output..."
-          find android -name "*.apk" 2>/dev/null || echo "No APK found"
-          echo "=== Gradle build log ==="
-          cat android/build.log 2>/dev/null || echo "No build log found"
-        fi
+        ./gradlew assembleDebug --stacktrace
     
     - name: Upload APK
-      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: jizhang-app-debug
