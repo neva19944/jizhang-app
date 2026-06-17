@@ -26,8 +26,28 @@ jobs:
     - name: Build web app
       run: npm run build
     
-    - name: Sync to Android
-      run: npx cap sync android
+    - name: Install Capacitor CLI
+      run: npm install -g @capacitor/cli@6
+    
+    - name: Add Android platform (fresh)
+      run: |
+        npx cap add android || echo "Android platform already exists"
+        npx cap sync android
+    
+    - name: Fix Android SDK version (use stable versions)
+      run: |
+        # 使用稳定的 SDK 版本
+        sed -i 's/compileSdkVersion = 36/compileSdkVersion = 34/' android/variables.gradle
+        sed -i 's/targetSdkVersion = 36/targetSdkVersion = 34/' android/variables.gradle
+        sed -i 's/minSdkVersion = 24/minSdkVersion = 22/' android/variables.gradle
+        # 使用稳定的 Gradle 版本
+        sed -i 's/gradle-8.14.3-all.zip/gradle-8.2.1-all.zip/' android/gradle/wrapper/gradle-wrapper.properties
+        # 使用稳定的 Android Gradle Plugin 版本
+        sed -i "s/com.android.tools.build:gradle:8.13.0/com.android.tools.build:gradle:8.2.2/" android/build.gradle
+        # 修复 Java 版本
+        sed -i 's/VERSION_21/VERSION_17/g' android/app/capacitor.build.gradle
+        cat android/variables.gradle
+        cat android/gradle/wrapper/gradle-wrapper.properties
     
     - name: Setup Java
       uses: actions/setup-java@v4
@@ -40,20 +60,15 @@ jobs:
     
     - name: Build Android APK
       working-directory: android
-      run: ./gradlew assembleDebug --stacktrace --info
+      run: ./gradlew assembleDebug --no-daemon --stacktrace
     
-    - name: Find APK file
-      run: |
-        echo "=== Searching for APK files ==="
-        find . -name "*.apk" -type f 2>/dev/null || true
-        ls -laR android/app/build/outputs/ 2>/dev/null || echo "outputs dir not found"
+    - name: List APK files (debug)
+      run: find android -name "*.apk" -type f
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: jizhang-app-debug
-        path: |
-          android/app/build/outputs/apk/debug/*.apk
-          android/**/*.apk
+        path: android/app/build/outputs/apk/debug/app-debug.apk
         retention-days: 30
-        if-no-files-found: warn
+        if-no-files-found: error
