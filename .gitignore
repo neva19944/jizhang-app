@@ -1,0 +1,11 @@
+node_modules/
+dist/
+android/
+*.log
+.DS_Store
+*.tmp
+.vscode/
+.idea/
+安卓开发/
+*.apk
+*.aab

@@ -1,0 +1,128 @@
+/* Calendar.css — 一木风格日历页面 */
+
+.cal-page {
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+/* --- 顶部栏 --- */
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5) var(--space-3);
+  padding-top: max(var(--space-4), env(safe-area-inset-top, 0px));
+}
+
+.cal-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.cal-actions { display: flex; gap: 4px; }
+.cal-action-btn {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+}
+.cal-action-btn svg { width: 20px; height: 20px; stroke: var(--text-secondary); fill: none; stroke-width: 1.9; }
+
+/* --- 月度统计行 --- */
+.month-stats-row {
+  display: flex;
+  gap: var(--space-5);
+  padding: 0 var(--space-5) var(--space-4);
+}
+.ms-item .ms-label {
+  font-size: var(--text-xs); color: var(--text-secondary); margin-bottom: 2px;
+}
+.ms-item .ms-val {
+  font-size: var(--text-sm); font-weight: 600;
+}
+.ms-item.income .ms-val { color: var(--income); }
+.ms-item.expense .ms-val { color: var(--expense); }
+
+/* --- 日历网格 --- */
+.cal-grid-wrap {
+  padding: 0 var(--space-5) var(--space-6);
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: var(--space-2);
+}
+.wd-cell {
+  font-size: var(--text-xs); color: var(--text-tertiary); font-weight: 600;
+  padding: var(--space-2) 0;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.day-cell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.day-num {
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.day-festival {
+  font-size: 9px;
+  color: var(--text-hint);
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.1;
+  margin-top: 1px;
+}
+
+/* 有记录的标记 */
+.day-dot {
+  position: absolute;
+  bottom: 3px; left: 50%;
+  transform: translateX(-50%);
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  opacity: 0;
+}
+.day-cell.has-record .day-dot { opacity: 1; }
+
+/* 今天高亮（一木风格：绿色圆圈） */
+.day-cell.today {
+  background: var(--primary);
+}
+.day-cell.today .day-num,
+.day-cell.today .day-festival {
+  color: white;
+  font-weight: 600;
+}
+.day-cell.today .day-festival { color: rgba(255,255,255,0.8); }
+.day-cell.today .day-dot { background: white; opacity: 0.6; }
+
+/* 非本月日期 */
+.day-cell.other-month .day-num { color: var(--text-hint); }
+.day-cell.other-month .day-festival { visibility: hidden; }
+
+/* 空状态 */
+.cal-empty {
+  text-align: center;
+  padding: var(--space-10) var(--space-5);
+}

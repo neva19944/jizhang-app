@@ -1,0 +1,93 @@
+/* Accounts.css — 一木风格资产页面 */
+
+.accounts-page {
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+/* 顶部提示条 */
+.tip-bar {
+  margin: var(--space-3) var(--space-5) 0;
+  padding: 10px 14px;
+  background: var(--primary-50);
+  border-radius: 8px;
+  font-size: var(--text-xs);
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tip-bar svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
+.tip-close { margin-left: auto; cursor: pointer; opacity: 0.5; }
+
+/* 资产概览卡片（一木风格：渐变+植物装饰） */
+.asset-card {
+  margin: var(--space-4) var(--space-5) 0;
+  padding: var(--space-5) var(--space-5) var(--space-7);
+  background: var(--gradient-card);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ac-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+.ac-header-left {
+  display: flex; align-items: center; gap: 6px;
+  font-size: var(--text-sm); color: var(--text-secondary);
+}
+.ac-eye-icon {
+  width: 18px; height: 18px;
+  stroke: var(--text-tertiary); fill: none; stroke-width: 1.9;
+}
+.ac-more-btn {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+}
+.ac-more-btn svg { width: 18px; height: 18px; stroke: var(--text-tertiary); fill: none; stroke-width: 2; }
+
+.ac-main-row {
+  display: flex; align-items: baseline; gap: var(--space-5);
+}
+.ac-label { font-size: var(--text-sm); color: var(--text-secondary); white-space: nowrap; }
+.ac-value {
+  font-size: var(--text-hero);
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.ac-sub-row {
+  display: flex; gap: var(--space-6);
+  margin-top: var(--space-2);
+  font-size: var(--text-sm); color: var(--text-secondary);
+}
+
+/* 植物装饰 */
+.ac-deco { position: absolute; bottom: 0; right: 0; width: 120px; height: 90px; pointer-events: none; opacity: 0.55; }
+
+/* 快捷入口卡片（报销/债务/理财） */
+.quick-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  padding: 0 var(--space-5) var(--space-4);
+}
+
+.qc-item {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: var(--space-4) var(--space-3);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.qc-name { font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+.qc-row { display: flex; justify-content: space-between; font-size: var(--text-xs); color: var(--text-tertiary); margin-top: 4px; }
+
+/* 空状态 */
+.empty-area { text-align: center; padding: var(--space-10) var(--space-5); }

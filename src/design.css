@@ -1,0 +1,155 @@
+/* ============================================
+   设计系统 V5 — 一木记账风格
+   基于截图分析，还原一木记账的UI设计语言
+   ============================================ */
+
+/* --- Color System — 薄荷绿主题 --- */
+:root {
+  /* 主色：薄荷绿（一木记账核心色） */
+  --primary: #4DBB8A;
+  --primary-dark: #3DA67A;
+  --primary-light: #6ED0AA;
+  --primary-50: #E8F5EE;    /* 极浅薄荷背景 */
+  --primary-100: #D1EBD9;
+  --primary-200: #B3DDC2;
+  --primary-300: #8ECCA5;
+
+  /* 语义色 */
+  --income: #4DBB8A;         /* 收入 = 薄荷绿 */
+  --income-bg: #E8F5EE;
+  --expense: #E86360;        /* 支出 = 暖红色 */
+  --expense-bg: #FDEEEE;
+  --warn: #F5A623;
+  --info: #5C9EFF;
+
+  /* 中性色（冷灰，干净感） */
+  --gray-50:  #FAFBFA;
+  --gray-100: #F5F6F5;
+  --gray-200: #EEEEEF;
+  --gray-300: #D8D9D8;
+  --gray-400: #B0B1B0;
+  --gray-500: #88898A;
+  --gray-600: #666768;
+  --gray-700: #444546;
+  --gray-800: #333333;
+  --gray-900: #222223;
+
+  /* Surface */
+  --bg: #F7F8F7;             /* 页面背景：米白 */
+  --surface: #FFFFFF;
+  --surface-gray: #F5F6F5;
+
+  /* Text */
+  --text-primary: #2D3436;
+  --text-secondary: #88898A;
+  --text-tertiary: #B0B1B0;
+  --text-hint: #CCCCCC;
+
+  /* 渐变 */
+  --gradient-card: linear-gradient(135deg, #E8F5EE 0%, #D4EBE0 50%, #E8F5EE 100%);
+  --gradient-card-deep: linear-gradient(135deg, #4DBB8A 0%, #42A87A 100%);
+  --gradient-fab: linear-gradient(135deg, #5ECFA0 0%, #4DBB8A 100%);
+
+  /* 阴影（一木风格：极淡） */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-fab: 0 4px 12px rgba(77,187,138,0.35);
+}
+
+/* --- Typography --- */
+:root {
+  --font-primary: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'SF Mono', 'Consolas', 'Monaco', monospace;
+
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-hero: 36px;
+
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Spacing --- */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+}
+
+/* --- Motion --- */
+:root {
+  --ease-default: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);  /* 一木风格微弹 */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+
+body {
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* 数字等宽 */
+.numbers, .amount {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* 页面容器 */
+.page {
+  min-height: 100dvh;
+  padding-bottom: 90px; /* 浮动导航空间 */
+}
+
+/* 按钮基础 */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active { transform: scale(0.96); }
+
+/* 安全点击区 */
+.safe-touch { min-height: 44px; min-width: 44px; }
+
+/* 滚动条隐藏（移动端） */
+::-webkit-scrollbar { display: none; }
+
+/* 输入框重置 */
+input, select, textarea {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}

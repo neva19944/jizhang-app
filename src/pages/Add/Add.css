@@ -1,0 +1,267 @@
+/* Add.css — 一木风格记账页（上分类+下键盘） */
+
+.add-page {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  position: relative;
+}
+
+/* --- 顶部导航栏 --- */
+.add-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-4) 0;
+  padding-top: max(var(--space-4), env(safe-area-inset-top, 0px));
+  flex-shrink: 0;
+}
+
+.add-back {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+}
+
+.add-back svg { width: 22px; height: 22px; stroke: var(--text-primary); stroke-width: 2; fill: none; }
+
+/* 类型标签切换 — 一木风格4个tab */
+.type-tabs {
+  display: flex;
+  gap: var(--space-5);
+  margin-left: var(--space-2);
+}
+
+.type-tab {
+  font-size: var(--text-md);
+  color: var(--text-secondary);
+  padding-bottom: 6px;
+  border-bottom: 2.5px solid transparent;
+  transition: all var(--duration-fast);
+  font-weight: 500;
+}
+
+.type-tab.active {
+  color: var(--primary-dark);
+  border-color: var(--primary);
+  font-weight: 600;
+}
+
+.edit-btn {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* --- 分类选择区域 --- */
+.cat-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--space-4) var(--space-5);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 5列网格 */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-3) var(--space-2);
+}
+
+.cat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-3) var(--space-1);
+  border-radius: 12px;
+  transition: all var(--duration-fast) var(--ease-default);
+  position: relative;
+}
+
+/* 圆形图标容器 */
+.cat-icon-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-gray);
+  transition: all var(--duration-normal) var(--ease-default);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.cat-name {
+  font-size: var(--text-xs);
+  color: var(--text-primary);
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+/* 激活态 */
+.cat-item.active .cat-icon-wrap {
+  background: var(--primary-50);
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(77,187,138,0.25);
+}
+
+.cat-item.active .cat-name {
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+/* 小圆点标记（一木风格） */
+.cat-dot {
+  position: absolute;
+  top: 6px; right: 8px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+}
+.cat-item.active .cat-dot { opacity: 1; }
+
+/* 新增分类 */
+.cat-add .cat-icon-wrap {
+  background: transparent;
+  border: 1.5px dashed var(--gray-300);
+  box-sizing: border-box;
+}
+.cat-add .cat-icon-wrap::after {
+  content: '+';
+  font-size: 18px;
+  color: var(--text-tertiary);
+  font-weight: 300;
+}
+
+/* ====== 底部固定区域（键盘+金额）====== */
+.bottom-panel {
+  flex-shrink: 0;
+  background: var(--surface);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+  z-index: 100;
+}
+
+/* --- 备注行 + 金额 --- */
+.amount-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.note-area {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  min-width: 0;
+}
+
+.note-icon {
+  width: 20px; height: 20px;
+  stroke: var(--text-tertiary); fill: none; stroke-width: 1.9;
+  flex-shrink: 0;
+}
+
+.note-input {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-base);
+  color: var(--text-hint);
+  outline: none;
+}
+
+.amount-display {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  min-width: 80px;
+  text-align: right;
+}
+
+.amount-display.expense { color: var(--expense); }
+.amount-display.income { color: var(--income); }
+
+/* --- 快捷工具栏 --- */
+.toolbar {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tool-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: 16px;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  background: var(--surface-gray);
+  white-space: nowrap;
+  transition: all var(--duration-fast);
+  border: 1px solid transparent;
+}
+
+.tool-tag svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.9; }
+.tool-tag.active { background: var(--primary-50); color: var(--primary-dark); border-color: var(--primary-100); }
+.tool-tag:hover:not(.active) { border-color: var(--gray-300); }
+
+/* --- 数字键盘 --- */
+.keypad {
+  padding: var(--space-3) var(--space-4) var(--space-5);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.key-btn {
+  aspect-ratio: 1.15;
+  border-radius: 12px;
+  font-size: var(--text-lg);
+  font-weight: 500;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-gray);
+  color: var(--text-primary);
+  transition: all var(--duration-fast) var(--ease-spring);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.key-btn:active {
+  background: var(--primary-50);
+  transform: scale(0.94);
+}
+
+.key-btn.key-num { font-size: 21px; }
+.key-btn.key-op { color: var(--text-secondary); font-size: var(--text-base); }
+.key-btn.key-action { background: var(--gray-100); color: var(--text-secondary); font-size: var(--text-sm); }
+.key-btn.key-confirm {
+  background: var(--primary);
+  color: white;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  aspect-ratio: auto;
+  grid-row: span 2;
+}
+.key-btn.key-confirm:active { background: var(--primary-dark); }

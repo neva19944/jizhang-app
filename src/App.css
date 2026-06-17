@@ -1,0 +1,90 @@
+/* App.css — 一木风格浮动胶囊底部导航 */
+
+.app-main {
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+/* 浮动胶囊导航 */
+.tab-bar {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  gap: 2px;
+
+  padding: 5px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border-radius: 28px;
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.08),
+    0 1px 3px rgba(0,0,0,0.04),
+    inset 0 1px 1px rgba(255,255,255,0.8);
+
+  width: auto;
+  max-width: 92vw;
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 7px 14px;
+  border-radius: 22px;
+  position: relative;
+  transition: all var(--duration-normal) var(--ease-default);
+}
+
+.tab-item .tab-icon {
+  width: 23px;
+  height: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+.tab-item .tab-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--text-tertiary);
+  stroke-width: 1.9;
+  fill: none;
+  transition: stroke var(--duration-normal), fill var(--duration-normal);
+}
+
+.tab-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
+  transition: color var(--duration-normal);
+}
+
+/* 激活态 */
+.tab-item.active {
+  background: var(--primary);
+  box-shadow: 0 2px 8px rgba(77,187,138,0.35);
+}
+
+.tab-item.active .tab-icon svg {
+  stroke: white;
+}
+
+.tab-item.active .tab-label {
+  color: white;
+  font-weight: 600;
+}
+
+/* 激活图标微弹 */
+.tab-item.active .tab-icon {
+  transform: scale(1.05);
+}

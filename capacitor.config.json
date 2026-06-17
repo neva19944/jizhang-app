@@ -1,0 +1,6 @@
+{
+  "appId": "com.jizhang.app",
+  "appName": "记账",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

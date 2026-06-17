@@ -1,0 +1,86 @@
+/* More.css — 我的页面样式（一木风格） */
+
+.more-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding-bottom: 100px;
+}
+
+/* 顶部 */
+.more-header {
+  padding: var(--space-6) var(--space-5) var(--space-4);
+}
+
+.more-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* 分组区块 */
+.group-section {
+  padding: 0 var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.group-label {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+  padding-left: var(--space-2);
+}
+
+/* 列表卡片 */
+.list-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.list-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-4);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-bottom: 1px solid var(--gray-200);
+  transition: background 0.2s ease;
+}
+
+.list-row:last-child {
+  border-bottom: none;
+}
+
+.list-row:active {
+  background: var(--gray-100);
+}
+
+.list-icon {
+  font-size: 1.2rem;
+  margin-right: var(--space-3);
+  width: 24px;
+  text-align: center;
+}
+
+.list-text {
+  flex: 1;
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.list-hint {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  margin-right: var(--space-2);
+}
+
+.list-arrow {
+  font-size: 1.2rem;
+  color: var(--text-tertiary);
+  font-weight: 300;
+}
