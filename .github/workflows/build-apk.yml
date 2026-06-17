@@ -21,7 +21,7 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
-      run: npm ci
+      run: npm install
     
     - name: Build web app
       run: npm run build
@@ -32,19 +32,40 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
     
-    - name: Add Android platform
+    - name: Install Capacitor CLI
+      run: npm install -g @capacitor/cli
+    
+    - name: Add Android platform (if not exists)
       run: |
-        npm install -g @capacitor/cli
-        npx cap add android || true
-        npx cap sync android
+        if [ ! -d "android" ]; then
+          npx cap add android
+        else
+          echo "Android platform already exists"
+        fi
+      continue-on-error: true
+    
+    - name: Sync Capacitor
+      run: npx cap sync android
     
     - name: Build Android APK
+      working-directory: ./android
       run: |
-        cd android
         chmod +x gradlew
-        ./gradlew assembleDebug
+        ./gradlew assembleDebug --stacktrace --info
+      continue-on-error: true
+    
+    - name: Check APK exists
+      run: |
+        if [ -f "android/app/build/outputs/apk/debug/app-debug.apk" ]; then
+          echo "✅ APK built successfully"
+          ls -lh android/app/build/outputs/apk/debug/app-debug.apk
+        else
+          echo "❌ APK not found, trying alternative build..."
+          cd android && ./gradlew assembleDebug --no-daemon
+        fi
     
     - name: Upload APK
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: jizhang-app-debug
