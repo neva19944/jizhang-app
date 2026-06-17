@@ -1,6 +1,5 @@
 node_modules/
 dist/
-android/
 *.log
 .DS_Store
 *.tmp
@@ -9,3 +8,6 @@ android/
 安卓开发/
 *.apk
 *.aab
+
+# 保留Capacitor生成的Android项目
+!android/

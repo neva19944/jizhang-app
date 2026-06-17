@@ -33,25 +33,21 @@ jobs:
         java-version: '17'
     
     - name: Install Capacitor CLI
-      run: npm install -g @capacitor/cli
+      run: npm install -g @capacitor/core @capacitor/cli @capacitor/android
     
-    - name: Add Android platform (if not exists)
-      run: |
-        if [ ! -d "android" ]; then
-          npx cap add android
-        else
-          echo "Android platform already exists"
-        fi
-      continue-on-error: true
+    - name: Add Android platform
+      run: npx cap add android || echo "Android platform already exists"
     
     - name: Sync Capacitor
       run: npx cap sync android
     
-    - name: Build Android APK
+    - name: Build Android APK with detailed logging
       working-directory: ./android
       run: |
         chmod +x gradlew
-        ./gradlew assembleDebug --stacktrace --info
+        ./gradlew assembleDebug --stacktrace --info 2>&1 | tee build.log
+        echo "=== Build log ==="
+        cat build.log
       continue-on-error: true
     
     - name: Check APK exists
@@ -60,8 +56,10 @@ jobs:
           echo "✅ APK built successfully"
           ls -lh android/app/build/outputs/apk/debug/app-debug.apk
         else
-          echo "❌ APK not found, trying alternative build..."
-          cd android && ./gradlew assembleDebug --no-daemon
+          echo "❌ APK not found, checking build output..."
+          find android -name "*.apk" 2>/dev/null || echo "No APK found"
+          echo "=== Gradle build log ==="
+          cat android/build.log 2>/dev/null || echo "No build log found"
         fi
     
     - name: Upload APK
